@@ -4,19 +4,37 @@
 #include <chrono>
 #include <time.h>
 #include <random>
+#include <termios.h>
 #include "all_headers.h"
 
 using namespace std;
 
-char user_in;
+char user_in='\0';
 
 void Input(){
-    while(true){
+    // while(true){
+    //     cin>>user_in;
+    //     if(user_in == 'q'){
+    //         break;
+    //     }
+    // }
+    
+    struct termios old_state, new_state;
+    //get the current state of stdin
+    tcgetattr(STDIN_FILENO, &old_state);
+    //copy the state to modify it
+    new_state = old_state;
+    //turn off canonical mode and turn echo for stdin off
+    new_state.c_lflag &= (~ICANON & ~ECHO);
+    //set the new attribute this instant
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_state);
+
+    while(user_in!='q'){
         cin>>user_in;
-        if(user_in == 'q'){
-            break;
-        }
     }
+
+    //reset all the settings
+    tcsetattr(STDIN_FILENO, TCSANOW, &old_state);
 }
 
 int random_tiles(){

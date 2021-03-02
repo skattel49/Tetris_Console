@@ -27,8 +27,8 @@ void Board::testDraw(Tiles* player){
     int s = player->getSize();
 
     std::cout<<"Controls of the game: "<<std::endl;
-    std::cout<<"a + Enter : Rotate Left, d + Enter: Rotate Right"<<std::endl;
-    std::cout<<"j + Enter : Move Left, k + Enter : Move Right"<<std::endl;
+    std::cout<<"a : Rotate Left, d: Rotate Right"<<std::endl;
+    std::cout<<"j : Move Left, k : Move Right"<<std::endl;
 
     for(int i = 0; i<height; i++){
         std::cout<<"@";
